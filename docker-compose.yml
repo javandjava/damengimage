@@ -1,0 +1,27 @@
+services:
+  ubuntu:
+    image: dm:m4
+    user: "1001:1001"
+    container_name: DM
+    hostname: ubuntu-m4
+    restart: unless-stopped
+    volumes:
+      - ./home/dbdata :/dbdata
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - dev-network
+    ports:
+      - "8236:4236"
+      - "8237:5236"
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+          cpus: '2.0'
+        reservations:
+          memory: 4G
+          cpus: '1.0'
+networks:
+  dev-network:
+    driver: bridge
